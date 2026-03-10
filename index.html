@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8 de marzo · Día de la Mujer</title>
-    <!-- Fuente elegante y efectos de diseño -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 para iconos chidos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>15 de octubre · Día Mundial de los Derechos Animales</title>
     <style>
         * {
             margin: 0;
@@ -18,449 +12,381 @@
         }
 
         body {
-            background: #0c0b14;
-            font-family: 'Space Grotesk', sans-serif;
-            color: #f5e9ff;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #1d4e2a 0%, #2a7237 40%, #3f9142 100%);
+            color: #fefae0;
             line-height: 1.5;
+            scroll-behavior: smooth;
             overflow-x: hidden;
         }
 
-        /* scroll suave y efecto de vidrio */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* decoración de fondo con blur y movimiento */
-        .background-blob {
-            position: fixed;
-            width: 90vmax;
-            height: 90vmax;
-            background: radial-gradient(circle at 30% 50%, rgba(255, 80, 200, 0.25) 0%, rgba(147, 51, 234, 0.2) 40%, transparent 70%);
-            filter: blur(80px);
-            z-index: 0;
-            top: -20vh;
-            right: -20vw;
-            animation: float 30s infinite alternate ease-in-out;
-            pointer-events: none;
-        }
-
-        .background-blob-2 {
-            position: fixed;
-            width: 80vmax;
-            height: 80vmax;
-            background: radial-gradient(circle at 70% 80%, #9333ea25, #ec489925, transparent 70%);
-            filter: blur(100px);
-            z-index: 0;
-            bottom: -10vh;
-            left: -10vw;
-            animation: float2 25s infinite alternate;
-            pointer-events: none;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(-5%, -5%) scale(1.1); }
-        }
-        @keyframes float2 {
-            0% { transform: translate(0, 0) scale(1.2); }
-            100% { transform: translate(8%, 6%) scale(1); }
-        }
-
-        /* contenedor principal con relativo para poner contenido arriba */
-        .wrapper {
+        /* sección principal: título + creadores + flecha */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: rgba(0, 20, 5, 0.3);
+            backdrop-filter: blur(3px);
+            border-bottom: 4px solid #f7d44e;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             position: relative;
-            z-index: 10;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 2rem 2rem 1rem;
-            backdrop-filter: blur(2px);
-        }
-
-        /* tipografía títulos */
-        h1, h2, h3 {
-            font-weight: 700;
-            letter-spacing: -0.02em;
+            z-index: 5;
         }
 
         h1 {
-            font-size: clamp(3.5rem, 12vw, 6rem);
-            line-height: 1;
-            background: linear-gradient(135deg, #ff99cc, #f472b6, #c084fc, #a855f7);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 4px 4px 0 #1b3b1f, 7px 7px 0 rgba(0,0,0,0.2);
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 20px #ff009970;
-            animation: textGlow 3s infinite alternate;
+            color: #fae47e;
         }
 
-        @keyframes textGlow {
-            0% { text-shadow: 0 0 20px #ff99cc90, 0 0 40px #c084fc70; }
-            100% { text-shadow: 0 0 40px #ffb6c190, 0 0 80px #a855f7; }
-        }
-
-        .subhead {
-            font-size: 1.8rem;
-            font-weight: 300;
-            background: linear-gradient(120deg, #e9d5ff, #fbcfe8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            border-left: 6px solid #ec4899;
-            padding-left: 1.5rem;
-            margin: 1rem 0 2.5rem;
-        }
-
-        /* grid de tarjetas con efecto glassmorphism + 3D */
-        .grid-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-        }
-
-        .card {
-            background: rgba(30, 20, 40, 0.4);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 200, 240, 0.2);
-            border-radius: 3rem 1rem 3rem 1rem;
-            padding: 2.5rem 1.5rem;
-            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(236, 72, 153, 0) inset;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .card:hover {
-            transform: translateY(-16px) rotateX(2deg) rotateY(2deg) scale(1.02);
-            border-color: #ec4899;
-            box-shadow: 0 30px 60px rgba(236, 72, 200, 0.4), 0 0 0 3px #ec4899 inset;
-            background: rgba(60, 20, 50, 0.6);
-        }
-
-        .card i {
-            font-size: 3.2rem;
-            background: linear-gradient(145deg, #fda4af, #e879f9);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1.5rem;
-            transition: transform 0.2s;
-        }
-
-        .card:hover i {
-            transform: scale(1.2) rotate(5deg);
-        }
-
-        .card h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fbcfe8, #d8b4fe);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .card p, .card li {
-            color: #e2d9f2;
-            font-weight: 300;
-            list-style: none;
-        }
-
-        .card ul {
-            padding-left: 0.2rem;
-        }
-
-        .card li {
-            margin: 0.8rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-        }
-
-        .card li i {
-            font-size: 1.2rem;
-            margin: 0;
-            background: none;
-            color: #f9a8d4;
-        }
-
-        /* sección línea de tiempo efecto glass horizontal */
-        .timeline {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 5rem 0;
-        }
-
-        .timeline-item {
-            flex: 1 1 200px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(244, 114, 182, 0.3);
-            border-radius: 50px 10px 50px 10px;
-            padding: 2rem 1.5rem;
-            transition: 0.3s;
-            text-align: center;
-            box-shadow: 0 10px 30px -10px #00000080;
-        }
-
-        .timeline-item:hover {
-            border-color: #f472b6;
-            background: rgba(244, 114, 182, 0.15);
-            transform: scale(1.03) translateY(-8px);
-            box-shadow: 0 30px 40px -10px #ec4899;
-        }
-
-        .year {
-            font-size: 2.8rem;
-            font-weight: 700;
-            background: linear-gradient(145deg, #ffb3c6, #d8b4fe);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1;
-        }
-
-        /* bloque cita / manifesto */
-        .manifesto {
-            background: rgba(126, 34, 206, 0.2);
-            backdrop-filter: blur(20px);
-            border: 1px solid #ec4899;
-            border-radius: 70px 20px 70px 20px;
-            padding: 3rem;
-            margin: 4rem 0;
-            box-shadow: 0 0 50px #ec489955, inset 0 0 30px #c026d030;
-            transform: rotate(0.5deg);
-            transition: 0.3s;
-            font-size: 1.4rem;
-            font-weight: 300;
-            quotes: "“" "”" "‘" "’";
-        }
-
-        .manifesto:hover {
-            transform: rotate(0deg) scale(1.01);
-            box-shadow: 0 0 80px #ec4899;
-            border-color: #f0f;
-        }
-
-        .manifesto::before {
-            content: "“";
-            font-size: 6rem;
-            line-height: 0.8;
-            display: block;
-            color: #ec4899;
-            opacity: 0.5;
-            font-family: serif;
-        }
-
-        /* sección de autoras con mucho estilo */
-        .credits {
-            margin-top: 5rem;
-            padding: 2.5rem 2rem;
-            background: rgba(10, 5, 15, 0.7);
-            backdrop-filter: blur(16px);
-            border-radius: 120px 20px 120px 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 2.5rem;
-            border: 2px dashed #ffa6c9;
-            text-align: center;
-        }
-
-        .credit-name {
-            font-size: 2.2rem;
+        .creators-top {
+            font-size: 1.5rem;
+            background: rgba(255, 255, 240, 0.15);
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(5px);
+            border: 2px solid #f5d742;
+            margin: 1.5rem 0 2.5rem 0;
             font-weight: 500;
-            background: linear-gradient(145deg, #fbcfe8, #bae6fd);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
         }
 
-        .badge {
-            background: #b8067c30;
-            border: 1px solid #ff00a2;
-            border-radius: 200px;
-            padding: 0.8rem 2rem;
-            font-size: 1.7rem;
-            font-weight: 400;
-            box-shadow: 0 0 30px #ff4d9a;
+        .creators-top span {
+            font-weight: 700;
+            color: #ffec9e;
         }
 
-        .badge i {
-            margin: 0 0.5rem;
-            color: #ffa6f0;
-        }
-
-        /* footer con efecto neón */
-        footer {
-            text-align: center;
-            padding: 2.5rem 0.5rem 1rem;
-            color: #aaa0c0;
-            font-weight: 300;
-            font-size: 1.2rem;
-        }
-
-        footer a {
-            color: #f9a8d4;
+        .arrow {
+            font-size: 4.5rem;
             text-decoration: none;
-            border-bottom: 2px dotted;
+            color: #fae47e;
+            display: inline-block;
+            animation: bounce 2.2s infinite ease-in-out;
+            filter: drop-shadow(0 10px 8px #0f2f12);
+            transition: transform 0.2s, color 0.2s;
+            margin-top: 2rem;
         }
 
-        footer a:hover {
-            color: #ffffff;
-            text-shadow: 0 0 10px hotpink;
+        .arrow:hover {
+            color: #ffd966;
+            transform: scale(1.15);
         }
 
-        /* animaciones de entrada */
-        .fade-up {
-            animation: fadeUp 1s ease both;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-25px); }
+            60% { transform: translateY(-12px); }
         }
 
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* contenedor de animales — grid con estilo selvático */
+        .animals-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 3rem 8rem 3rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem 1.8rem;
+            position: relative;
+            z-index: 2;
+            background: radial-gradient(circle at 20% 30%, #31743e, #1b4d23);
+            box-shadow: inset 0 15px 25px rgba(0, 20, 0, 0.6);
+        }
+
+        /* target para que la flecha lleve justo al inicio de los animales */
+        #animals {
+            scroll-margin-top: 20px;
+        }
+
+        /* tarjeta animal: oculta por defecto, con transform desde esquina */
+        .animal-card {
+            background: rgba(255, 250, 210, 0.88);
+            backdrop-filter: blur(2px);
+            border-radius: 35px 15px 35px 15px;
+            padding: 1.6rem 1.2rem 1.8rem 1.2rem;
+            color: #1c401f;
+            box-shadow: 0 20px 30px -8px rgba(0, 20, 0, 0.8), 0 0 0 3px #f7d44e, 0 0 0 6px #4f7a3f;
+            text-align: center;
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            will-change: transform, opacity;
+            border: 2px solid #ffe68f;
+        }
+
+        /* cada esquina de origen */
+        .from-tl {
+            transform: translate(-120%, -120%) rotate(-5deg);
+        }
+        .from-tr {
+            transform: translate(120%, -120%) rotate(5deg);
+        }
+        .from-bl {
+            transform: translate(-120%, 120%) rotate(5deg);
+        }
+        .from-br {
+            transform: translate(120%, 120%) rotate(-5deg);
+        }
+
+        /* estado visible: todas vuelven a su posición natural */
+        .animal-card.visible {
+            opacity: 1;
+            transform: translate(0, 0) rotate(0deg);
+        }
+
+        /* emoji / icono grande */
+        .animal-emoji {
+            font-size: 4.2rem;
+            line-height: 1.2;
+            filter: drop-shadow(2px 6px 5px #3b5e2b);
+            margin-bottom: 0.75rem;
+        }
+
+        .animal-name {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #14532d, #2b6e3a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 0 #d4c26a;
+            margin-bottom: 0.4rem;
+        }
+
+        .animal-info {
+            font-size: 1.1rem;
+            background: #e6f0da;
+            padding: 0.7rem;
+            border-radius: 30px 10px 30px 10px;
+            color: #1e4d27;
+            font-weight: 500;
+            box-shadow: inset 0 2px 5px #afb88f;
+            border: 1px solid #b89b42;
+        }
+
+        /* footer con repetición de creadores y texto ia */
+        footer {
+            background: #0c3014;
+            padding: 2.5rem 1.5rem 1.8rem;
+            text-align: center;
+            border-top: 6px solid #f3cd5b;
+            box-shadow: 0 -12px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .creators-footer {
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: rgba(253, 242, 172, 0.25);
+            display: inline-block;
+            padding: 0.6rem 2.2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+            border: 2px solid #fad455;
+            margin-bottom: 1.8rem;
+            color: #fff7c0;
+            letter-spacing: 0.5px;
+        }
+
+        .ia-small {
+            font-size: 1rem;
+            color: #cedbba;
+            border-top: 1px dashed #5f874b;
+            padding-top: 1.5rem;
+            width: fit-content;
+            margin: 0 auto;
+            font-style: italic;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .ia-small:hover {
+            opacity: 1;
+            color: #fbe593;
+        }
+
+        /* efecto de hojas volando (puro adorno) */
+        .leaf-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.1"><path fill="%23a5d6a5" d="M70,60 Q90,30 120,40 Q140,60 120,90 Q90,110 60,90 Q40,70 70,60"/><path fill="%236a994a" d="M150,130 Q170,110 180,130 Q190,160 160,170 Q130,170 130,140 Q130,120 150,130"/></svg>');
+            background-repeat: repeat;
+            background-size: 120px;
+            z-index: 0;
         }
 
         /* responsividad */
-        @media (max-width: 600px) {
-            .wrapper { padding: 1rem; }
-            h1 { font-size: 4rem; }
-            .subhead { font-size: 1.4rem; }
-            .manifesto { padding: 1.5rem; }
+        @media (max-width: 700px) {
+            .creators-top { font-size: 1.2rem; }
+            .animal-name { font-size: 1.7rem; }
+            .animals-grid { padding: 2rem 1.5rem 5rem 1.5rem; gap: 1.2rem; }
+            .creators-footer { font-size: 1.3rem; }
+        }
+
+        /* efecto sutil para que el inicio se vea "vacío" (los animales están ocultos) */
+        .animals-grid {
+            min-height: 70vh;
+        }
+
+        /* pequeños detalles selváticos */
+        .hero::after {
+            content: "🌿🍃🌱";
+            font-size: 3rem;
+            opacity: 0.2;
+            position: absolute;
+            bottom: 10px;
+            right: 20px;
+            transform: rotate(-10deg);
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <!-- fondos con blur y movimiento (chingo de diseño) -->
-    <div class="background-blob"></div>
-    <div class="background-blob-2"></div>
+    <div class="leaf-bg"></div> <!-- adorno de fondo -->
 
-    <div class="wrapper">
-        <!-- cabecera impactante -->
-        <header class="fade-up">
-            <h1>8 DE MARZO</h1>
-            <div class="subhead">
-                <i class="fas fa-venus-mars" style="margin-right: 15px;"></i>
-                Día Internacional de la Mujer · lucha, memoria, sororidad
-            </div>
-        </header>
+    <!-- SECCIÓN SUPERIOR: TÍTULO, CREADORES, FLECHA -->
+    <section class="hero">
+        <h1>🌎 15 DE OCTUBRE<br>DÍA MUNDIAL DE LOS<br>DERECHOS ANIMALES</h1>
+        <p class="creators-top">
+            <span>Melissa Bermúdez Ramírez</span> y <span>Erick Esquivel Mendoza</span>
+        </p>
+        <a href="#animals" class="arrow" aria-label="Desplázate hacia los animales">↓</a>
+    </section>
 
-        <!-- tarjetas con mucha info importante -->
-        <section class="grid-info">
-            <article class="card">
-                <i class="fas fa-scale-balanced"></i>
-                <h3>¿Por qué 8M?</h3>
-                <p>Conmemora la lucha de las mujeres por la igualdad de derechos, el reconocimiento laboral, social y el fin de la violencia de género. Nace de las manifestaciones obreras de principios del siglo XX y del trágico incendio en la fábrica Cotton (Nueva York, 1911) donde murieron más de 100 trabajadoras.</p>
-            </article>
-            <article class="card">
-                <i class="fas fa-hand-fist"></i>
-                <h3>Derechos conquistados</h3>
-                <ul>
-                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Voto femenino (en varios países, s. XX)</li>
-                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Igualdad salarial (aún en lucha)</li>
-                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Leyes contra violencia de género</li>
-                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Derechos sexuales y reproductivos</li>
-                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Representación política y social</li>
-                </ul>
-            </article>
-            <article class="card">
-                <i class="fas fa-people-group"></i>
-                <h3>Luchas actuales</h3>
-                <ul>
-                    <li><i class="fas fa-star"></i> Brecha salarial y techos de cristal</li>
-                    <li><i class="fas fa-star"></i> Erradicar feminicidios</li>
-                    <li><i class="fas fa-star"></i> Corresponsabilidad familiar</li>
-                    <li><i class="fas fa-star"></i> Reconocimiento del trabajo doméstico</li>
-                </ul>
-            </article>
-        </section>
-
-        <!-- Línea de tiempo interactiva con momentos clave -->
-        <h2 style="font-size: 3rem; margin: 3rem 0 1rem; text-align: center; background: linear-gradient(135deg, #ffc1e3, #b794f6); -webkit-background-clip: text; background-clip: text; color: transparent;">🌍 Hitos históricos</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <span class="year">1908</span>
-                <p>15.000 mujeres marchan en NY pidiendo menos horas, mejor salario y voto.</p>
-            </div>
-            <div class="timeline-item">
-                <span class="year">1910</span>
-                <p>Clara Zetkin propone el Día de la Mujer en la II Conferencia Internacional de Mujeres Socialistas.</p>
-            </div>
-            <div class="timeline-item">
-                <span class="year">1911</span>
-                <p>Primera conmemoración del Día Internacional de la Mujer en varios países. Incendio en Triangle Shirtwaist.</p>
-            </div>
-            <div class="timeline-item">
-                <span class="year">1975</span>
-                <p>La ONU oficializa el 8 de marzo como Día Internacional de la Mujer.</p>
-            </div>
+    <!-- SECCIÓN DE ANIMALES (INICIALMENTE VACÍA A LA VISTA, PERO LOS CARDS ESTÁN OCULTOS) -->
+    <section id="animals" class="animals-grid">
+        <!-- generamos 12 tarjetas, cada una con una clase de esquina distinta (ciclo) 
+             y datos variados de animales de selva -->
+        <div class="animal-card from-tl">
+            <div class="animal-emoji">🐅</div>
+            <div class="animal-name">TIGRE</div>
+            <div class="animal-info">Depredador sagrado, cada tigre tiene un patrón de rayas único como huella digital.</div>
         </div>
-
-        <!-- Bloque manifesto / texto poderoso con mucho efecto -->
-        <div class="manifesto">
-            <p style="font-size: 1.8rem; font-weight: 400;">No es un día de celebración, es un día de lucha, memoria y exigencia. El 8M nos recuerda que la igualdad aún no es real y que la sororidad transforma el mundo. Cada paso, cada grito, cada mujer que se levanta, construye un futuro sin violencias.</p>
+        <div class="animal-card from-tr">
+            <div class="animal-emoji">🦜</div>
+            <div class="animal-name">GUACAMAYO</div>
+            <div class="animal-info">Pueden vivir más de 60 años y formar parejas de por vida. ¡hablan con colores!</div>
         </div>
-
-        <!-- Más datos relevantes en cards pequeñas pero con diseño -->
-        <section style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 3rem 0;">
-            <div style="flex: 1 1 200px; background: rgba(147, 51, 234, 0.2); backdrop-filter: blur(10px); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; padding: 2rem; border: 2px solid #e879f9; text-align: center; transition: 0.5s; box-shadow: 0 0 30px #c084fc;">
-                <i class="fas fa-user-tie" style="font-size: 3rem; color: #f9a8d4;"></i>
-                <h3 style="font-size: 2rem;">+ 130 años</h3>
-                <p>de lucha organizada por la igualdad.</p>
-            </div>
-            <div style="flex: 1 1 200px; background: rgba(236, 72, 153, 0.2); backdrop-filter: blur(10px); border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; padding: 2rem; border: 2px solid #f0f; text-align: center; transition: 0.5s;">
-                <i class="fas fa-earth-americas" style="font-size: 3rem; color: #f9a8d4;"></i>
-                <h3 style="font-size: 2rem;">+ 50 países</h3>
-                <p>con marchas multitudinarias cada 8M.</p>
-            </div>
-            <div style="flex: 1 1 200px; background: rgba(168, 85, 247, 0.2); backdrop-filter: blur(10px); border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%; padding: 2rem; border: 2px solid #ff78d5; text-align: center; transition: 0.5s;">
-                <i class="fas fa-flag" style="font-size: 3rem; color: #f9a8d4;"></i>
-                <h3 style="font-size: 2rem;">Verde, morado</h3>
-                <p>Colores del movimiento: morado (justicia y dignidad) y verde (aborto legal).</p>
-            </div>
-        </section>
-
-        <!-- Frases poderosas de mujeres (efecto tipográfico) -->
-        <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin: 3rem 0;">
-            <div style="flex: 1 1 250px; border-left: 6px solid #ffa6f0; padding-left: 1.5rem;">
-                <i class="fas fa-quote-right" style="font-size: 2rem; color: #ec4899;"></i>
-                <p style="font-size: 1.6rem; font-style: italic;">“No nacemos mujeres, llegamos a serlo.” <br><strong>— Simone de Beauvoir</strong></p>
-            </div>
-            <div style="flex: 1 1 250px; border-left: 6px solid #c084fc; padding-left: 1.5rem;">
-                <i class="fas fa-quote-right" style="font-size: 2rem; color: #b185db;"></i>
-                <p style="font-size: 1.6rem; font-style: italic;">“Lo personal es político.” <br><strong>— Carol Hanisch</strong></p>
-            </div>
+        <div class="animal-card from-bl">
+            <div class="animal-emoji">🐒</div>
+            <div class="animal-name">MONO ARAÑA</div>
+            <div class="animal-info">Su cola es tan fuerte que funciona como una quinta extremidad. Ágiles y sociales.</div>
         </div>
-
-        <!-- CRÉDITOS FINALES con nombres y mucho estilo (lo solicitado) -->
-        <div class="credits">
-            <div class="badge">
-                <i class="fas fa-paint-brush"></i> Contenido realizado por:
-            </div>
-            <span class="credit-name"><i class="fas fa-female"></i> Melissa Bermúdez Ramírez</span>
-            <span style="font-size: 2rem; color: #ec4899; font-weight: 100;">&</span>
-            <span class="credit-name"><i class="fas fa-user-astronaut"></i> Erick Esquivel Mendoza</span>
-            <div style="width: 100%; font-size: 1.8rem; letter-spacing: 3px;">
-                <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> 4°A Ofimática  <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>
-            </div>
+        <div class="animal-card from-br">
+            <div class="animal-emoji">🐍</div>
+            <div class="animal-name">ANACONDA</div>
+            <div class="animal-info">Puede medir más de 8 metros. A pesar del mito, rara vez ataca a humanos.</div>
         </div>
+        <div class="animal-card from-tl">
+            <div class="animal-emoji">🐸</div>
+            <div class="animal-name">RANA DORADA</div>
+            <div class="animal-info">Su piel contiene veneno suficiente para detener a 10 humanos. ¡pequeña pero poderosa!</div>
+        </div>
+        <div class="animal-card from-tr">
+            <div class="animal-emoji">🦥</div>
+            <div class="animal-name">PEREZOSO</div>
+            <div class="animal-info">Bajan de los árboles solo una vez a la semana para hacer sus necesidades. 💚</div>
+        </div>
+        <div class="animal-card from-bl">
+            <div class="animal-emoji">🐆</div>
+            <div class="animal-name">JAGUAR</div>
+            <div class="animal-info">El felino más grande de América. Su mordida puede atravesar caparazones de tortuga.</div>
+        </div>
+        <div class="animal-card from-br">
+            <div class="animal-emoji">🦏</div>
+            <div class="animal-name">TAPIR</div>
+            <div class="animal-info">Pariente lejano de rinocerontes. Son jardineros del bosque: dispersan semillas.</div>
+        </div>
+        <div class="animal-card from-tl">
+            <div class="animal-emoji">🦧</div>
+            <div class="animal-name">ORANGUTÁN</div>
+            <div class="animal-info">Construyen nidos nuevos cada noche en las copas. Comparten el 97% de ADN con nosotros.</div>
+        </div>
+        <div class="animal-card from-tr">
+            <div class="animal-emoji">🐊</div>
+            <div class="animal-name">CAIMÁN</div>
+            <div class="animal-info">Pueden permanecer sumergidos hasta una hora. Ojos y fosas nasales en la cima de la cabeza.</div>
+        </div>
+        <div class="animal-card from-bl">
+            <div class="animal-emoji">🦋</div>
+            <div class="animal-name">MORPHO AZUL</div>
+            <div class="animal-info">Sus alas no tienen pigmento azul: es un efecto de luz. Brilla como el cielo.</div>
+        </div>
+        <div class="animal-card from-br">
+            <div class="animal-emoji">🦔</div>
+            <div class="animal-name">PUERCOESPÍN</div>
+            <div class="animal-info">Sus púas son pelos modificados. Trepa árboles en busca de corteza y frutos.</div>
+        </div>
+    </section>
 
-        <!-- nota final -->
-        <footer>
-            <p>🌹 8 de marzo · día de respeto, memoria y exigencia · ninguna lucha sobra 🌹</p>
-            <p style="margin-top: 1.5rem;">Hecho con <i class="fas fa-heart" style="color: #f43f5e;"></i> para GitHub — efecto visual garantizado</p>
-            <p><a href="#">☢️contenido generado por IA☢️</a>comparte la info ✊</p>
-        </footer>
-    </div>
-    <!-- pequeño adorno flotante opcional (más diseño) -->
-    <div style="position:fixed; bottom:20px; left:20px; opacity:0.3; pointer-events:none; z-index:20;">
-        <i class="fas fa-ribbon" style="font-size: 4rem; color: #ffa6f0; filter: drop-shadow(0 0 20px magenta);"></i>
-    </div>
+    <!-- PIE DE PÁGINA: CREADORES + TEXTO IA -->
+    <footer>
+        <div class="creators-footer">
+            Melissa Bermúdez Ramírez  y  Erick Esquivel Mendoza
+        </div>
+        <div class="ia-small">
+            contenido generado por IA
+        </div>
+    </footer>
+
+    <!-- INTERSECCIÓN OBSERVER: cuando los cards aparecen en pantalla se añade la clase .visible -->
+    <script>
+        (function() {
+            // Esperar a que el DOM esté listo
+            document.addEventListener('DOMContentLoaded', function() {
+                const animalCards = document.querySelectorAll('.animal-card');
+                
+                // Configuración del observador: detecta cuando al menos el 25% de la tarjeta es visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // (Opcional) Podrías dejar de observarlo para ahorrar recursos:
+                            // observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.25,        // 25% del elemento visible
+                    rootMargin: '0px 0px -30px 0px' // pequeño margen para adelantar un poco la activación
+                });
+
+                // Observar cada tarjeta
+                animalCards.forEach(card => {
+                    observer.observe(card);
+                });
+
+                // (Opcional) si quieres que cuando ya sean visibles no se "escondan" de nuevo, 
+                // no hace falta más. Si el usuario hace scroll hacia arriba seguirán con la clase.
+                // Esto cumple el efecto de "aparecen una vez y se quedan"
+            });
+
+            // Asegurar que si hay algún problema de carga, todo se vea bien
+            // También se podría añadir un pequeño efecto para los que estén ya visibles al cargar
+            window.addEventListener('load', function() {
+                // Si alguna tarjeta está visible desde el inicio (poco probable) 
+                // el observer ya la activó. Pero forzamos un rechequeo por si acaso:
+                const visibleCards = document.querySelectorAll('.animal-card');
+                const windowHeight = window.innerHeight;
+                visibleCards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < windowHeight - 100 && rect.bottom > 0) {
+                        card.classList.add('visible');
+                    }
+                });
+            });
+        })();
+    </script>
+
+    <!-- Pequeña nota para que al hacer clic en la flecha la transición sea suave (ya definida en CSS) -->
+    <!-- Los nombres de los creadores están tanto arriba como abajo, con estilo diferenciado -->
+    <!-- Los animales salen de las esquinas (clases tl, tr, bl, br) y aparecen al scrollear -->
+    <!-- La página se siente vacía al inicio porque los animales tienen opacidad 0 y están desplazados -->
 </body>
 </html>
