@@ -1,392 +1,701 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>15 de octubre · Día Mundial de los Derechos Animales</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>🌍 15 octubre · derechos animales · carga líquida</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google fonts: Anton + Open Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Open+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(145deg, #1d4e2a 0%, #2a7237 40%, #3f9142 100%);
-            color: #fefae0;
-            line-height: 1.5;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+    body {
+      background-color: #f4fbe9;
+      font-family: 'Open Sans', sans-serif;
+      color: #1f3b2c;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
 
-        /* sección principal: título + creadores + flecha */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem 1.5rem;
-            background: rgba(0, 20, 5, 0.3);
-            backdrop-filter: blur(3px);
-            border-bottom: 4px solid #f7d44e;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 5;
-        }
+    /* ===== PANTALLA DE CARGA CON HUELLA QUE SE LLENA ===== */
+    #loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 30%, #2f6b41, #0f2b1a);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.8s;
+    }
 
-        h1 {
-            font-size: clamp(2rem, 8vw, 4.5rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 4px 4px 0 #1b3b1f, 7px 7px 0 rgba(0,0,0,0.2);
-            margin-bottom: 0.5rem;
-            color: #fae47e;
-        }
+    .loader-content {
+      text-align: center;
+      color: #fff3d6;
+      width: 100%;
+      max-width: 500px;
+      padding: 0 20px;
+    }
 
-        .creators-top {
-            font-size: 1.5rem;
-            background: rgba(255, 255, 240, 0.15);
-            padding: 0.6rem 2rem;
-            border-radius: 60px;
-            backdrop-filter: blur(5px);
-            border: 2px solid #f5d742;
-            margin: 1.5rem 0 2.5rem 0;
-            font-weight: 500;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
+    /* contenedor de la huella con efecto de llenado */
+    .paw-container {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 2rem;
+      filter: drop-shadow(0 0 30px #f9b84a);
+    }
 
-        .creators-top span {
-            font-weight: 700;
-            color: #ffec9e;
-        }
+    .paw-outline {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: #f9b84a;
+      font-size: 12rem;
+      line-height: 1;
+      z-index: 5;
+      opacity: 0.9;
+    }
 
-        .arrow {
-            font-size: 4.5rem;
-            text-decoration: none;
-            color: #fae47e;
-            display: inline-block;
-            animation: bounce 2.2s infinite ease-in-out;
-            filter: drop-shadow(0 10px 8px #0f2f12);
-            transition: transform 0.2s, color 0.2s;
-            margin-top: 2rem;
-        }
+    .paw-outline i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
-        .arrow:hover {
-            color: #ffd966;
-            transform: scale(1.15);
-        }
+    /* máscara para el llenado líquido */
+    .paw-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 50%;
+      z-index: 10;
+    }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-25px); }
-            60% { transform: translateY(-12px); }
-        }
+    .liquid-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(145deg, #f9b84a, #ffd966);
+      transition: height 0.1s linear;
+      height: 0%;
+      will-change: height;
+      box-shadow: 0 -10px 20px rgba(249, 184, 74, 0.5);
+    }
 
-        /* contenedor de animales — grid con estilo selvático */
-        .animals-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 3rem 8rem 3rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 2rem 1.8rem;
-            position: relative;
-            z-index: 2;
-            background: radial-gradient(circle at 20% 30%, #31743e, #1b4d23);
-            box-shadow: inset 0 15px 25px rgba(0, 20, 0, 0.6);
-        }
+    .liquid-wave::before,
+    .liquid-wave::after {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -30%;
+      left: -50%;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 45%;
+      animation: wave 8s infinite linear;
+    }
 
-        /* target para que la flecha lleve justo al inicio de los animales */
-        #animals {
-            scroll-margin-top: 20px;
-        }
+    .liquid-wave::before {
+      bottom: -10%;
+      opacity: 0.5;
+    }
 
-        /* tarjeta animal: oculta por defecto, con transform desde esquina */
-        .animal-card {
-            background: rgba(255, 250, 210, 0.88);
-            backdrop-filter: blur(2px);
-            border-radius: 35px 15px 35px 15px;
-            padding: 1.6rem 1.2rem 1.8rem 1.2rem;
-            color: #1c401f;
-            box-shadow: 0 20px 30px -8px rgba(0, 20, 0, 0.8), 0 0 0 3px #f7d44e, 0 0 0 6px #4f7a3f;
-            text-align: center;
-            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0;
-            will-change: transform, opacity;
-            border: 2px solid #ffe68f;
-        }
+    .liquid-wave::after {
+      bottom: -20%;
+      opacity: 0.3;
+      animation-duration: 12s;
+    }
 
-        /* cada esquina de origen */
-        .from-tl {
-            transform: translate(-120%, -120%) rotate(-5deg);
-        }
-        .from-tr {
-            transform: translate(120%, -120%) rotate(5deg);
-        }
-        .from-bl {
-            transform: translate(-120%, 120%) rotate(5deg);
-        }
-        .from-br {
-            transform: translate(120%, 120%) rotate(-5deg);
-        }
+    @keyframes wave {
+      0% { transform: translateX(0) translateY(0) rotate(0deg); }
+      100% { transform: translateX(-20%) translateY(-10%) rotate(360deg); }
+    }
 
-        /* estado visible: todas vuelven a su posición natural */
-        .animal-card.visible {
-            opacity: 1;
-            transform: translate(0, 0) rotate(0deg);
-        }
+    .loader-text {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: 6px;
+      font-family: 'Anton', sans-serif;
+      text-shadow: 0 0 20px #a7e0a0;
+      margin-top: 1rem;
+    }
 
-        /* emoji / icono grande */
-        .animal-emoji {
-            font-size: 4.2rem;
-            line-height: 1.2;
-            filter: drop-shadow(2px 6px 5px #3b5e2b);
-            margin-bottom: 0.75rem;
-        }
+    .loader-sub {
+      font-size: 1.2rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
 
-        .animal-name {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #14532d, #2b6e3a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 2px 2px 0 #d4c26a;
-            margin-bottom: 0.4rem;
-        }
+    .progress-percent {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #f9b84a;
+      text-shadow: 2px 2px 0 #1f3b2c;
+      margin-top: 1rem;
+    }
 
-        .animal-info {
-            font-size: 1.1rem;
-            background: #e6f0da;
-            padding: 0.7rem;
-            border-radius: 30px 10px 30px 10px;
-            color: #1e4d27;
-            font-weight: 500;
-            box-shadow: inset 0 2px 5px #afb88f;
-            border: 1px solid #b89b42;
-        }
+    #main-content {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
 
-        /* footer con repetición de creadores y texto ia */
-        footer {
-            background: #0c3014;
-            padding: 2.5rem 1.5rem 1.8rem;
-            text-align: center;
-            border-top: 6px solid #f3cd5b;
-            box-shadow: 0 -12px 25px rgba(0, 0, 0, 0.5);
-        }
+    /* ===== PORTADA CON TÍTULOS LEGIBLES ===== */
+    .hero {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: 
+        radial-gradient(circle at 20% 30%, #daf0cf, transparent 40%),
+        radial-gradient(circle at 90% 70%, #fde2b1, transparent 50%),
+        linear-gradient(145deg, #ffffff, #f0fbe5);
+      position: relative;
+      isolation: isolate;
+      padding: 1rem;
+    }
 
-        .creators-footer {
-            font-size: 1.8rem;
-            font-weight: 600;
-            background: rgba(253, 242, 172, 0.25);
-            display: inline-block;
-            padding: 0.6rem 2.2rem;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
-            border: 2px solid #fad455;
-            margin-bottom: 1.8rem;
-            color: #fff7c0;
-            letter-spacing: 0.5px;
-        }
+    .hero h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(4.5rem, 18vw, 11rem);
+      line-height: 0.9;
+      background: linear-gradient(145deg, #1f5e31, #b85e1a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 6px 6px 0 #e3f3d3, 8px 8px 20px rgba(0,0,0,0.2);
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 20;
+    }
 
-        .ia-small {
-            font-size: 1rem;
-            color: #cedbba;
-            border-top: 1px dashed #5f874b;
-            padding-top: 1.5rem;
-            width: fit-content;
-            margin: 0 auto;
-            font-style: italic;
-            opacity: 0.8;
-            transition: opacity 0.3s;
-        }
+    .hero h1 span {
+      display: block;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: #216635;
+      color: #ffffff;
+      padding: 1.2rem 2.8rem;
+      border-radius: 200px;
+      border: 6px solid #f9b84a;
+      margin-top: 1.2rem;
+      box-shadow: 0 20px 30px -10px #1e4f2b, 0 0 0 6px #f9ffe7 inset;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 0 #1a3f24;
+    }
 
-        .ia-small:hover {
-            opacity: 1;
-            color: #fbe593;
-        }
+    .creadores-portada {
+      margin: 3rem 0 3.5rem;
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: #ffffff;
+      padding: 1.5rem 3rem;
+      border-radius: 200px;
+      border: 6px solid #b85e1a;
+      box-shadow: 0 25px 35px -15px #1e4f2b;
+      color: #1d4829;
+      line-height: 1.5;
+    }
 
-        /* efecto de hojas volando (puro adorno) */
-        .leaf-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.1"><path fill="%23a5d6a5" d="M70,60 Q90,30 120,40 Q140,60 120,90 Q90,110 60,90 Q40,70 70,60"/><path fill="%236a994a" d="M150,130 Q170,110 180,130 Q190,160 160,170 Q130,170 130,140 Q130,120 150,130"/></svg>');
-            background-repeat: repeat;
-            background-size: 120px;
-            z-index: 0;
-        }
+    .creadores-portada i {
+      color: #b85e1a;
+      filter: drop-shadow(0 4px 6px #ffb882);
+      margin: 0 5px;
+    }
 
-        /* responsividad */
-        @media (max-width: 700px) {
-            .creators-top { font-size: 1.2rem; }
-            .animal-name { font-size: 1.7rem; }
-            .animals-grid { padding: 2rem 1.5rem 5rem 1.5rem; gap: 1.2rem; }
-            .creators-footer { font-size: 1.3rem; }
-        }
+    .arrow-down {
+      font-size: 6rem;
+      color: #216635;
+      text-decoration: none;
+      animation: flotar 2.2s infinite alternate;
+      transition: 0.3s;
+      display: inline-block;
+      filter: drop-shadow(0 20px 20px #95c18b);
+      transform-origin: center;
+      z-index: 30;
+    }
 
-        /* efecto sutil para que el inicio se vea "vacío" (los animales están ocultos) */
-        .animals-grid {
-            min-height: 70vh;
-        }
+    .arrow-down:hover {
+      color: #b85e1a;
+      transform: scale(1.3) rotate(8deg);
+      filter: drop-shadow(0 20px 15px #b85e1a);
+    }
 
-        /* pequeños detalles selváticos */
-        .hero::after {
-            content: "🌿🍃🌱";
-            font-size: 3rem;
-            opacity: 0.2;
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            transform: rotate(-10deg);
-            pointer-events: none;
-        }
-    </style>
+    @keyframes flotar {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-28px) rotate(4deg); }
+    }
+
+    /* ===== SECCIÓN PRINCIPAL ===== */
+    .derechos-wrapper {
+      position: relative;
+      background: #edfbe4;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .pattern-layer {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background-image: 
+        repeating-radial-gradient(circle at 30% 40%, rgba(70, 130, 70, 0.1) 0px, transparent 30px),
+        repeating-linear-gradient(45deg, rgba(184, 94, 26, 0.05) 0px, rgba(184, 94, 26, 0.05) 20px, transparent 20px, transparent 40px);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .jungla-icons {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .bestia {
+      position: absolute;
+      font-size: 4rem;
+      color: #386f45;
+      opacity: 0;
+      transition: opacity 1.5s cubic-bezier(0.1, 0.8, 0.2, 1.2), transform 0.8s;
+      filter: drop-shadow(0 20px 18px #24522e);
+      will-change: opacity, transform;
+    }
+
+    .bestia.visible {
+      opacity: 0.6;
+    }
+
+    /* 30 posiciones (mismas que antes) */
+    .bestia:nth-child(1) { top: 2%; left: 2%; }
+    .bestia:nth-child(2) { top: 7%; right: 3%; transform: rotate(10deg); }
+    .bestia:nth-child(3) { top: 15%; left: 8%; transform: rotate(-12deg); }
+    .bestia:nth-child(4) { top: 23%; right: 7%; transform: rotate(18deg); }
+    .bestia:nth-child(5) { top: 32%; left: 4%; transform: rotate(-5deg); }
+    .bestia:nth-child(6) { top: 40%; right: 12%; transform: rotate(8deg); }
+    .bestia:nth-child(7) { top: 49%; left: 12%; transform: rotate(-20deg); }
+    .bestia:nth-child(8) { top: 58%; right: 5%; transform: rotate(15deg); }
+    .bestia:nth-child(9) { top: 67%; left: 7%; transform: rotate(-8deg); }
+    .bestia:nth-child(10) { top: 76%; right: 10%; transform: rotate(22deg); }
+    .bestia:nth-child(11) { top: 85%; left: 3%; transform: rotate(-15deg); }
+    .bestia:nth-child(12) { top: 93%; right: 2%; transform: rotate(5deg); }
+    .bestia:nth-child(13) { top: 12%; left: 20%; }
+    .bestia:nth-child(14) { top: 27%; right: 22%; transform: rotate(25deg); }
+    .bestia:nth-child(15) { top: 36%; left: 25%; transform: rotate(-10deg); }
+    .bestia:nth-child(16) { top: 48%; right: 18%; transform: rotate(12deg); }
+    .bestia:nth-child(17) { top: 59%; left: 30%; transform: rotate(-6deg); }
+    .bestia:nth-child(18) { top: 71%; right: 25%; transform: rotate(20deg); }
+    .bestia:nth-child(19) { top: 82%; left: 22%; transform: rotate(-14deg); }
+    .bestia:nth-child(20) { top: 94%; right: 30%; transform: rotate(9deg); }
+    .bestia:nth-child(21) { top: 18%; left: 40%; }
+    .bestia:nth-child(22) { top: 44%; right: 40%; transform: rotate(15deg); }
+    .bestia:nth-child(23) { top: 65%; left: 45%; transform: rotate(-7deg); }
+    .bestia:nth-child(24) { top: 80%; right: 45%; transform: rotate(11deg); }
+    .bestia:nth-child(25) { top: 8%; left: 60%; }
+    .bestia:nth-child(26) { top: 55%; right: 55%; transform: rotate(20deg); }
+    .bestia:nth-child(27) { top: 90%; left: 55%; }
+    .bestia:nth-child(28) { top: 30%; left: 70%; }
+    .bestia:nth-child(29) { top: 70%; right: 70%; }
+    .bestia:nth-child(30) { top: 45%; left: 80%; }
+
+    /* ===== CONTENIDO DE DERECHOS ===== */
+    .derechos-section {
+      position: relative;
+      z-index: 40;
+      background: transparent;
+      padding: 2rem 0 5rem;
+    }
+
+    .intro-premium {
+      text-align: center;
+      background: #ffffff;
+      border-radius: 80px 20px 80px 20px;
+      padding: 3rem 2rem;
+      border: 8px solid #216635;
+      box-shadow: 0 30px 40px -20px #1e4f2b;
+      margin-bottom: 5rem;
+    }
+
+    .intro-premium h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: 5rem;
+      color: #1f5e31;
+      text-shadow: 4px 4px 0 #f9b84a;
+      margin-bottom: 0.5rem;
+      letter-spacing: 2px;
+    }
+
+    .intro-premium p {
+      font-size: 1.6rem;
+      background: #216635;
+      color: #ffffff;
+      padding: 1.5rem 2rem;
+      border-radius: 80px;
+      font-weight: 600;
+      border: 4px solid #f9b84a;
+      box-shadow: 0 20px 20px -10px #a7cf9a;
+    }
+
+    .derechos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem 2rem;
+      perspective: 2000px;
+    }
+
+    .derecho-card {
+      background: #ffffff;
+      border: 6px solid #216635;
+      border-radius: 80px 15px 80px 15px;
+      padding: 2.5rem 1.8rem;
+      box-shadow: 20px 20px 0 #b3dfa8, 0 30px 30px -15px #163f20;
+      transition: all 0.5s ease;
+      opacity: 0;
+      transform: translateY(100px) scale(0.8);
+      will-change: opacity, transform;
+    }
+
+    .derecho-card.show {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .derecho-card:hover {
+      transform: scale(1.02) translateY(-10px);
+      box-shadow: 30px 30px 0 #a1d894, 0 40px 40px -20px #133319;
+      border-color: #b85e1a;
+    }
+
+    .numero-derecho {
+      font-family: 'Anton', sans-serif;
+      font-size: 6rem;
+      color: #b85e1a;
+      text-shadow: 4px 4px 0 #216635;
+      line-height: 0.8;
+      margin-bottom: 0.5rem;
+    }
+
+    .derecho-card h3 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #1f5e31;
+      border-left: 12px solid #b85e1a;
+      padding-left: 1.5rem;
+      margin: 1rem 0 1rem;
+    }
+
+    .derecho-card p {
+      font-size: 1.1rem;
+      font-weight: 500;
+      background: #f0fbe9;
+      padding: 1.2rem 1.5rem;
+      border-radius: 60px 10px 60px 10px;
+      border: 3px solid #216635;
+      color: #1a3b24;
+    }
+
+    .historia-block {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      margin-top: 6rem;
+      background: #216635;
+      border-radius: 120px 30px 120px 30px;
+      border: 8px solid #f9b84a;
+      padding: 4rem 3rem;
+      box-shadow: 0 50px 50px -30px #0f2b1a;
+    }
+
+    .fecha-especial {
+      font-size: 10rem;
+      font-weight: 900;
+      font-family: 'Anton', sans-serif;
+      line-height: 0.8;
+      color: #f9b84a;
+      text-shadow: 6px 6px 0 #1f3b2c;
+      min-width: 280px;
+      text-align: center;
+    }
+
+    .historia-texto h3 {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #f9b84a;
+      border-bottom: 8px solid #f9b84a;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+      font-family: 'Anton', sans-serif;
+      letter-spacing: 2px;
+      text-shadow: 3px 3px 0 #1f3b2c;
+    }
+
+    .historia-texto p {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #ffffff;
+      text-shadow: 2px 2px 0 #1f3b2c;
+    }
+
+    .footer {
+      background: #ffffff;
+      border-top: 12px double #216635;
+      padding: 4rem 1rem 2.5rem;
+      text-align: center;
+    }
+
+    .footer .creadores-footer {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: #216635;
+      color: #ffffff;
+      padding: 1.5rem 3rem;
+      border-radius: 200px;
+      border: 6px solid #f9b84a;
+      display: inline-block;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 25px 30px -15px #1b552b;
+    }
+
+    .footer .ia-small {
+      font-size: 1.3rem;
+      background: #1e4f2b;
+      color: #f9b84a;
+      padding: 0.7rem 3rem;
+      border-radius: 200px;
+      width: fit-content;
+      margin: 0 auto;
+      border: 4px solid #f9b84a;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 4.5rem; }
+      .hero h1 span { font-size: 1.4rem; padding: 1rem; }
+      .creadores-portada { font-size: 1.4rem; padding: 1rem; }
+      .intro-premium h2 { font-size: 3rem; }
+      .intro-premium p { font-size: 1.2rem; }
+      .numero-derecho { font-size: 4rem; }
+      .derecho-card h3 { font-size: 1.8rem; }
+      .fecha-especial { font-size: 5rem; }
+      .historia-texto h3 { font-size: 2.5rem; }
+      .historia-texto p { font-size: 1.2rem; }
+      .footer .creadores-footer { font-size: 1.6rem; padding: 1rem; }
+      .paw-container { width: 150px; height: 150px; }
+      .paw-outline { font-size: 9rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="leaf-bg"></div> <!-- adorno de fondo -->
 
-    <!-- SECCIÓN SUPERIOR: TÍTULO, CREADORES, FLECHA -->
-    <section class="hero">
-        <h1>🌎 15 DE OCTUBRE<br>DÍA MUNDIAL DE LOS<br>DERECHOS ANIMALES</h1>
-        <p class="creators-top">
-            <span>Melissa Bermúdez Ramírez</span> y <span>Erick Esquivel Mendoza</span>
-        </p>
-        <a href="#animals" class="arrow" aria-label="Desplázate hacia los animales">↓</a>
+  <!-- PANTALLA DE CARGA CON HUELLA QUE SE LLENA DE LÍQUIDO -->
+  <div id="loader-wrapper">
+    <div class="loader-content">
+      <div class="paw-container">
+        <div class="paw-outline">
+          <i class="fas fa-paw"></i>
+        </div>
+        <div class="paw-fill">
+          <div class="liquid-wave" id="liquidWave"></div>
+        </div>
+      </div>
+      <div class="loader-text">DERECHOS ANIMALES</div>
+      <div class="loader-sub">15 de octubre · declaración universal</div>
+      <div class="progress-percent" id="progressPercent">0%</div>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div id="main-content">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="container" style="text-align: center;">
+        <h1>
+          DÍA MUNDIAL<br>DERECHOS ANIMALES
+          <span>15 DE OCTUBRE · DECLARACIÓN UNESCO</span>
+        </h1>
+        <div class="creadores-portada">
+          <i class="fas fa-paw"></i> Melissa Bermúdez Ramírez <i class="fas fa-feather-alt"></i> <br>
+          <span style="font-size: 2.2rem;">⬇</span> <br>
+          <i class="fas fa-paw"></i> Erick Esquivel Mendoza <i class="fas fa-feather-alt"></i>
+        </div>
+        <a href="#derechos-start" class="arrow-down">
+          <i class="fas fa-chevron-circle-down"></i>
+        </a>
+      </div>
     </section>
 
-    <!-- SECCIÓN DE ANIMALES (INICIALMENTE VACÍA A LA VISTA, PERO LOS CARDS ESTÁN OCULTOS) -->
-    <section id="animals" class="animals-grid">
-        <!-- generamos 12 tarjetas, cada una con una clase de esquina distinta (ciclo) 
-             y datos variados de animales de selva -->
-        <div class="animal-card from-tl">
-            <div class="animal-emoji">🐅</div>
-            <div class="animal-name">TIGRE</div>
-            <div class="animal-info">Depredador sagrado, cada tigre tiene un patrón de rayas único como huella digital.</div>
-        </div>
-        <div class="animal-card from-tr">
-            <div class="animal-emoji">🦜</div>
-            <div class="animal-name">GUACAMAYO</div>
-            <div class="animal-info">Pueden vivir más de 60 años y formar parejas de por vida. ¡hablan con colores!</div>
-        </div>
-        <div class="animal-card from-bl">
-            <div class="animal-emoji">🐒</div>
-            <div class="animal-name">MONO ARAÑA</div>
-            <div class="animal-info">Su cola es tan fuerte que funciona como una quinta extremidad. Ágiles y sociales.</div>
-        </div>
-        <div class="animal-card from-br">
-            <div class="animal-emoji">🐍</div>
-            <div class="animal-name">ANACONDA</div>
-            <div class="animal-info">Puede medir más de 8 metros. A pesar del mito, rara vez ataca a humanos.</div>
-        </div>
-        <div class="animal-card from-tl">
-            <div class="animal-emoji">🐸</div>
-            <div class="animal-name">RANA DORADA</div>
-            <div class="animal-info">Su piel contiene veneno suficiente para detener a 10 humanos. ¡pequeña pero poderosa!</div>
-        </div>
-        <div class="animal-card from-tr">
-            <div class="animal-emoji">🦥</div>
-            <div class="animal-name">PEREZOSO</div>
-            <div class="animal-info">Bajan de los árboles solo una vez a la semana para hacer sus necesidades. 💚</div>
-        </div>
-        <div class="animal-card from-bl">
-            <div class="animal-emoji">🐆</div>
-            <div class="animal-name">JAGUAR</div>
-            <div class="animal-info">El felino más grande de América. Su mordida puede atravesar caparazones de tortuga.</div>
-        </div>
-        <div class="animal-card from-br">
-            <div class="animal-emoji">🦏</div>
-            <div class="animal-name">TAPIR</div>
-            <div class="animal-info">Pariente lejano de rinocerontes. Son jardineros del bosque: dispersan semillas.</div>
-        </div>
-        <div class="animal-card from-tl">
-            <div class="animal-emoji">🦧</div>
-            <div class="animal-name">ORANGUTÁN</div>
-            <div class="animal-info">Construyen nidos nuevos cada noche en las copas. Comparten el 97% de ADN con nosotros.</div>
-        </div>
-        <div class="animal-card from-tr">
-            <div class="animal-emoji">🐊</div>
-            <div class="animal-name">CAIMÁN</div>
-            <div class="animal-info">Pueden permanecer sumergidos hasta una hora. Ojos y fosas nasales en la cima de la cabeza.</div>
-        </div>
-        <div class="animal-card from-bl">
-            <div class="animal-emoji">🦋</div>
-            <div class="animal-name">MORPHO AZUL</div>
-            <div class="animal-info">Sus alas no tienen pigmento azul: es un efecto de luz. Brilla como el cielo.</div>
-        </div>
-        <div class="animal-card from-br">
-            <div class="animal-emoji">🦔</div>
-            <div class="animal-name">PUERCOESPÍN</div>
-            <div class="animal-info">Sus púas son pelos modificados. Trepa árboles en busca de corteza y frutos.</div>
-        </div>
-    </section>
+    <!-- WRAPPER CON ANIMALES -->
+    <div class="derechos-wrapper" id="derechos-start">
+      <div class="pattern-layer"></div>
 
-    <!-- PIE DE PÁGINA: CREADORES + TEXTO IA -->
-    <footer>
-        <div class="creators-footer">
-            Melissa Bermúdez Ramírez  y  Erick Esquivel Mendoza
+      <!-- 30 BESTIAS -->
+      <div class="jungla-icons">
+        <i class="fa-solid fa-paw bestia"></i>
+        <i class="fa-solid fa-frog bestia"></i>
+        <i class="fa-solid fa-feather bestia"></i>
+        <i class="fa-solid fa-cat bestia"></i>
+        <i class="fa-solid fa-dragon bestia"></i>
+        <i class="fa-solid fa-dove bestia"></i>
+        <i class="fa-solid fa-fish bestia"></i>
+        <i class="fa-solid fa-hippo bestia"></i>
+        <i class="fa-solid fa-tree bestia"></i>
+        <i class="fa-solid fa-otter bestia"></i>
+        <i class="fa-solid fa-spider bestia"></i>
+        <i class="fa-solid fa-crow bestia"></i>
+        <i class="fa-solid fa-butterfly bestia"></i>
+        <i class="fa-solid fa-dog bestia"></i>
+        <i class="fa-solid fa-kiwi-bird bestia"></i>
+        <i class="fa-solid fa-cow bestia"></i>
+        <i class="fa-solid fa-horse bestia"></i>
+        <i class="fa-solid fa-worm bestia"></i>
+        <i class="fa-solid fa-locust bestia"></i>
+        <i class="fa-solid fa-shrimp bestia"></i>
+        <i class="fa-solid fa-fox bestia"></i>
+        <i class="fa-solid fa-hen bestia"></i>
+        <i class="fa-solid fa-bear bestia"></i>
+        <i class="fa-solid fa-whale bestia"></i>
+        <i class="fa-solid fa-dolphin bestia"></i>
+        <i class="fa-solid fa-elephant bestia"></i>
+        <i class="fa-solid fa-rat bestia"></i>
+        <i class="fa-solid fa-rabbit bestia"></i>
+        <i class="fa-solid fa-turtle bestia"></i>
+        <i class="fa-solid fa-snake bestia"></i>
+      </div>
+
+      <!-- SECCIÓN DE DERECHOS -->
+      <section class="derechos-section container">
+        <div class="intro-premium">
+          <h2>⚡ DERECHOS FUNDAMENTALES ⚡</h2>
+          <p><strong>15 octubre 1978</strong> – UNESCO proclamó la Declaración Universal de los Derechos de los Animales.</p>
         </div>
-        <div class="ia-small">
-            contenido generado por IA
+
+        <div class="derechos-grid" id="derechosGrid">
+          <div class="derecho-card"><span class="numero-derecho">I</span><h3>Existencia</h3><p>Todos los animales nacen iguales ante la vida y tienen el mismo derecho a existir.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">II</span><h3>Respeto</h3><p>Ningún animal será maltratado. Muerte instantánea e indolora si es necesaria.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">III</span><h3>Libertad</h3><p>Los animales salvajes tienen derecho a vivir libres en su hábitat natural.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">IV</span><h3>No esclavitud</h3><p>Prohibido el uso en espectáculos y toda explotación que degrade su dignidad.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">V</span><h3>Entorno digno</h3><p>Animales de compañía: condiciones acordes a sus necesidades fisiológicas.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">VI</span><h3>Contra el abandono</h3><p>Abandonar un animal es un acto cruel y punible éticamente.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">VII</span><h3>Muerte digna</h3><p>Sacrificio sin angustia, incluso en industria alimentaria.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">VIII</span><h3>Protección legal</h3><p>Los derechos animales deben estar respaldados por leyes, como los humanos.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">IX</span><h3>Especies amenazadas</h3><p>Programas de preservación y protección de hábitats.</p></div>
+          <div class="derecho-card"><span class="numero-derecho">X</span><h3>Educación</h3><p>Los estados deben fomentar el respeto hacia los animales desde la infancia.</p></div>
         </div>
+
+        <!-- BLOQUE HISTÓRICO -->
+        <div class="historia-block">
+          <div class="fecha-especial">15·X·1978</div>
+          <div class="historia-texto">
+            <h3>¿CUÁNDO Y DÓNDE?</h3>
+            <p>Proclamada el <strong>15 de octubre de 1978</strong> en París por la Liga Internacional de los Derechos del Animal, respaldada por la UNESCO. Posteriormente se presentó a la ONU en 1989. Hoy más de 90 países han adoptado principios basados en esta declaración.</p>
+            <p style="margin-top:2rem;">🌿 Todos los seres sintientes merecen respeto, dignidad y protección. Esta fecha nos recuerda nuestro deber ético.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="creadores-footer">
+        <i class="fas fa-paw"></i> Melissa Bermúdez Ramírez & Erick Esquivel Mendoza <i class="fas fa-paw"></i>
+      </div>
+      <div class="ia-small">
+        (contenido generado por IA)
+      </div>
+      <div style="margin-top: 2rem; opacity: 0.8;">15 octubre · derechos animales · declaración universal</div>
     </footer>
+  </div>
 
-    <!-- INTERSECCIÓN OBSERVER: cuando los cards aparecen en pantalla se añade la clase .visible -->
-    <script>
-        (function() {
-            // Esperar a que el DOM esté listo
-            document.addEventListener('DOMContentLoaded', function() {
-                const animalCards = document.querySelectorAll('.animal-card');
-                
-                // Configuración del observador: detecta cuando al menos el 25% de la tarjeta es visible
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('visible');
-                            // (Opcional) Podrías dejar de observarlo para ahorrar recursos:
-                            // observer.unobserve(entry.target);
-                        }
-                    });
-                }, {
-                    threshold: 0.25,        // 25% del elemento visible
-                    rootMargin: '0px 0px -30px 0px' // pequeño margen para adelantar un poco la activación
-                });
+  <!-- SCRIPT: CARGA LÍQUIDA + OBSERVER -->
+  <script>
+    (function() {
+      const loader = document.getElementById('loader-wrapper');
+      const mainContent = document.getElementById('main-content');
+      const liquidWave = document.getElementById('liquidWave');
+      const progressPercent = document.getElementById('progressPercent');
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 1;
+        if (progress > 100) progress = 100;
+        
+        // actualizar altura del líquido
+        liquidWave.style.height = progress + '%';
+        progressPercent.textContent = progress + '%';
+        
+        if (progress === 100) {
+          clearInterval(interval);
+          // cuando llega al 100%, ocultar loader y mostrar contenido
+          setTimeout(() => {
+            loader.style.opacity = '0';
+            loader.style.visibility = 'hidden';
+            mainContent.style.opacity = '1';
+          }, 500); // medio segundo para disfrutar el 100%
+        }
+      }, 30); // 30ms * 100 = 3 segundos totales
+      
+      // INTERSECTION OBSERVER PARA TARJETAS Y ANIMALES
+      const cards = document.querySelectorAll('.derecho-card');
+      const bestias = document.querySelectorAll('.bestia');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            if (entry.target.classList.contains('bestia')) {
+              entry.target.classList.add('visible');
+            }
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '30px' });
 
-                // Observar cada tarjeta
-                animalCards.forEach(card => {
-                    observer.observe(card);
-                });
+      cards.forEach(c => observer.observe(c));
+      bestias.forEach(b => observer.observe(b));
 
-                // (Opcional) si quieres que cuando ya sean visibles no se "escondan" de nuevo, 
-                // no hace falta más. Si el usuario hace scroll hacia arriba seguirán con la clase.
-                // Esto cumple el efecto de "aparecen una vez y se quedan"
-            });
+      // precarga para primeros elementos (cuando ya haya cargado)
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          [...cards, ...bestias].forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 50) {
+              el.classList.add('show');
+              if (el.classList.contains('bestia')) el.classList.add('visible');
+            }
+          });
+        }, 3500); // después de la carga
+      });
+    })();
+  </script>
 
-            // Asegurar que si hay algún problema de carga, todo se vea bien
-            // También se podría añadir un pequeño efecto para los que estén ya visibles al cargar
-            window.addEventListener('load', function() {
-                // Si alguna tarjeta está visible desde el inicio (poco probable) 
-                // el observer ya la activó. Pero forzamos un rechequeo por si acaso:
-                const visibleCards = document.querySelectorAll('.animal-card');
-                const windowHeight = window.innerHeight;
-                visibleCards.forEach(card => {
-                    const rect = card.getBoundingClientRect();
-                    if (rect.top < windowHeight - 100 && rect.bottom > 0) {
-                        card.classList.add('visible');
-                    }
-                });
-            });
-        })();
-    </script>
-
-    <!-- Pequeña nota para que al hacer clic en la flecha la transición sea suave (ya definida en CSS) -->
-    <!-- Los nombres de los creadores están tanto arriba como abajo, con estilo diferenciado -->
-    <!-- Los animales salen de las esquinas (clases tl, tr, bl, br) y aparecen al scrollear -->
-    <!-- La página se siente vacía al inicio porque los animales tienen opacidad 0 y están desplazados -->
+  <style>
+    .jungla-icons { pointer-events: none; }
+    .derecho-card, .creadores-portada, .arrow-down { pointer-events: auto; }
+    .bestia.visible { transition: opacity 1.5s, transform 0.5s; }
+    .bestia:hover { transform: scale(1.4) rotate(10deg) !important; opacity: 1 !important; transition: 0.2s; }
+  </style>
 </body>
 </html>
