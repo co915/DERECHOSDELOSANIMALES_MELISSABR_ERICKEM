@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 de marzo · Día de la Mujer</title>
+    <!-- Fuente elegante y efectos de diseño -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome 6 para iconos chidos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0c0b14;
+            font-family: 'Space Grotesk', sans-serif;
+            color: #f5e9ff;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        /* scroll suave y efecto de vidrio */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* decoración de fondo con blur y movimiento */
+        .background-blob {
+            position: fixed;
+            width: 90vmax;
+            height: 90vmax;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 80, 200, 0.25) 0%, rgba(147, 51, 234, 0.2) 40%, transparent 70%);
+            filter: blur(80px);
+            z-index: 0;
+            top: -20vh;
+            right: -20vw;
+            animation: float 30s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        .background-blob-2 {
+            position: fixed;
+            width: 80vmax;
+            height: 80vmax;
+            background: radial-gradient(circle at 70% 80%, #9333ea25, #ec489925, transparent 70%);
+            filter: blur(100px);
+            z-index: 0;
+            bottom: -10vh;
+            left: -10vw;
+            animation: float2 25s infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-5%, -5%) scale(1.1); }
+        }
+        @keyframes float2 {
+            0% { transform: translate(0, 0) scale(1.2); }
+            100% { transform: translate(8%, 6%) scale(1); }
+        }
+
+        /* contenedor principal con relativo para poner contenido arriba */
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 2rem 1rem;
+            backdrop-filter: blur(2px);
+        }
+
+        /* tipografía títulos */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(3.5rem, 12vw, 6rem);
+            line-height: 1;
+            background: linear-gradient(135deg, #ff99cc, #f472b6, #c084fc, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px #ff009970;
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 20px #ff99cc90, 0 0 40px #c084fc70; }
+            100% { text-shadow: 0 0 40px #ffb6c190, 0 0 80px #a855f7; }
+        }
+
+        .subhead {
+            font-size: 1.8rem;
+            font-weight: 300;
+            background: linear-gradient(120deg, #e9d5ff, #fbcfe8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-left: 6px solid #ec4899;
+            padding-left: 1.5rem;
+            margin: 1rem 0 2.5rem;
+        }
+
+        /* grid de tarjetas con efecto glassmorphism + 3D */
+        .grid-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .card {
+            background: rgba(30, 20, 40, 0.4);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 200, 240, 0.2);
+            border-radius: 3rem 1rem 3rem 1rem;
+            padding: 2.5rem 1.5rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(236, 72, 153, 0) inset;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .card:hover {
+            transform: translateY(-16px) rotateX(2deg) rotateY(2deg) scale(1.02);
+            border-color: #ec4899;
+            box-shadow: 0 30px 60px rgba(236, 72, 200, 0.4), 0 0 0 3px #ec4899 inset;
+            background: rgba(60, 20, 50, 0.6);
+        }
+
+        .card i {
+            font-size: 3.2rem;
+            background: linear-gradient(145deg, #fda4af, #e879f9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fbcfe8, #d8b4fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .card p, .card li {
+            color: #e2d9f2;
+            font-weight: 300;
+            list-style: none;
+        }
+
+        .card ul {
+            padding-left: 0.2rem;
+        }
+
+        .card li {
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .card li i {
+            font-size: 1.2rem;
+            margin: 0;
+            background: none;
+            color: #f9a8d4;
+        }
+
+        /* sección línea de tiempo efecto glass horizontal */
+        .timeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 5rem 0;
+        }
+
+        .timeline-item {
+            flex: 1 1 200px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(244, 114, 182, 0.3);
+            border-radius: 50px 10px 50px 10px;
+            padding: 2rem 1.5rem;
+            transition: 0.3s;
+            text-align: center;
+            box-shadow: 0 10px 30px -10px #00000080;
+        }
+
+        .timeline-item:hover {
+            border-color: #f472b6;
+            background: rgba(244, 114, 182, 0.15);
+            transform: scale(1.03) translateY(-8px);
+            box-shadow: 0 30px 40px -10px #ec4899;
+        }
+
+        .year {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(145deg, #ffb3c6, #d8b4fe);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+        }
+
+        /* bloque cita / manifesto */
+        .manifesto {
+            background: rgba(126, 34, 206, 0.2);
+            backdrop-filter: blur(20px);
+            border: 1px solid #ec4899;
+            border-radius: 70px 20px 70px 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 0 50px #ec489955, inset 0 0 30px #c026d030;
+            transform: rotate(0.5deg);
+            transition: 0.3s;
+            font-size: 1.4rem;
+            font-weight: 300;
+            quotes: "“" "”" "‘" "’";
+        }
+
+        .manifesto:hover {
+            transform: rotate(0deg) scale(1.01);
+            box-shadow: 0 0 80px #ec4899;
+            border-color: #f0f;
+        }
+
+        .manifesto::before {
+            content: "“";
+            font-size: 6rem;
+            line-height: 0.8;
+            display: block;
+            color: #ec4899;
+            opacity: 0.5;
+            font-family: serif;
+        }
+
+        /* sección de autoras con mucho estilo */
+        .credits {
+            margin-top: 5rem;
+            padding: 2.5rem 2rem;
+            background: rgba(10, 5, 15, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 120px 20px 120px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            border: 2px dashed #ffa6c9;
+            text-align: center;
+        }
+
+        .credit-name {
+            font-size: 2.2rem;
+            font-weight: 500;
+            background: linear-gradient(145deg, #fbcfe8, #bae6fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .badge {
+            background: #b8067c30;
+            border: 1px solid #ff00a2;
+            border-radius: 200px;
+            padding: 0.8rem 2rem;
+            font-size: 1.7rem;
+            font-weight: 400;
+            box-shadow: 0 0 30px #ff4d9a;
+        }
+
+        .badge i {
+            margin: 0 0.5rem;
+            color: #ffa6f0;
+        }
+
+        /* footer con efecto neón */
+        footer {
+            text-align: center;
+            padding: 2.5rem 0.5rem 1rem;
+            color: #aaa0c0;
+            font-weight: 300;
+            font-size: 1.2rem;
+        }
+
+        footer a {
+            color: #f9a8d4;
+            text-decoration: none;
+            border-bottom: 2px dotted;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px hotpink;
+        }
+
+        /* animaciones de entrada */
+        .fade-up {
+            animation: fadeUp 1s ease both;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* responsividad */
+        @media (max-width: 600px) {
+            .wrapper { padding: 1rem; }
+            h1 { font-size: 4rem; }
+            .subhead { font-size: 1.4rem; }
+            .manifesto { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- fondos con blur y movimiento (chingo de diseño) -->
+    <div class="background-blob"></div>
+    <div class="background-blob-2"></div>
+
+    <div class="wrapper">
+        <!-- cabecera impactante -->
+        <header class="fade-up">
+            <h1>8 DE MARZO</h1>
+            <div class="subhead">
+                <i class="fas fa-venus-mars" style="margin-right: 15px;"></i>
+                Día Internacional de la Mujer · lucha, memoria, sororidad
+            </div>
+        </header>
+
+        <!-- tarjetas con mucha info importante -->
+        <section class="grid-info">
+            <article class="card">
+                <i class="fas fa-scale-balanced"></i>
+                <h3>¿Por qué 8M?</h3>
+                <p>Conmemora la lucha de las mujeres por la igualdad de derechos, el reconocimiento laboral, social y el fin de la violencia de género. Nace de las manifestaciones obreras de principios del siglo XX y del trágico incendio en la fábrica Cotton (Nueva York, 1911) donde murieron más de 100 trabajadoras.</p>
+            </article>
+            <article class="card">
+                <i class="fas fa-hand-fist"></i>
+                <h3>Derechos conquistados</h3>
+                <ul>
+                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Voto femenino (en varios países, s. XX)</li>
+                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Igualdad salarial (aún en lucha)</li>
+                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Leyes contra violencia de género</li>
+                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Derechos sexuales y reproductivos</li>
+                    <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Representación política y social</li>
+                </ul>
+            </article>
+            <article class="card">
+                <i class="fas fa-people-group"></i>
+                <h3>Luchas actuales</h3>
+                <ul>
+                    <li><i class="fas fa-star"></i> Brecha salarial y techos de cristal</li>
+                    <li><i class="fas fa-star"></i> Erradicar feminicidios</li>
+                    <li><i class="fas fa-star"></i> Corresponsabilidad familiar</li>
+                    <li><i class="fas fa-star"></i> Reconocimiento del trabajo doméstico</li>
+                </ul>
+            </article>
+        </section>
+
+        <!-- Línea de tiempo interactiva con momentos clave -->
+        <h2 style="font-size: 3rem; margin: 3rem 0 1rem; text-align: center; background: linear-gradient(135deg, #ffc1e3, #b794f6); -webkit-background-clip: text; background-clip: text; color: transparent;">🌍 Hitos históricos</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="year">1908</span>
+                <p>15.000 mujeres marchan en NY pidiendo menos horas, mejor salario y voto.</p>
+            </div>
+            <div class="timeline-item">
+                <span class="year">1910</span>
+                <p>Clara Zetkin propone el Día de la Mujer en la II Conferencia Internacional de Mujeres Socialistas.</p>
+            </div>
+            <div class="timeline-item">
+                <span class="year">1911</span>
+                <p>Primera conmemoración del Día Internacional de la Mujer en varios países. Incendio en Triangle Shirtwaist.</p>
+            </div>
+            <div class="timeline-item">
+                <span class="year">1975</span>
+                <p>La ONU oficializa el 8 de marzo como Día Internacional de la Mujer.</p>
+            </div>
+        </div>
+
+        <!-- Bloque manifesto / texto poderoso con mucho efecto -->
+        <div class="manifesto">
+            <p style="font-size: 1.8rem; font-weight: 400;">No es un día de celebración, es un día de lucha, memoria y exigencia. El 8M nos recuerda que la igualdad aún no es real y que la sororidad transforma el mundo. Cada paso, cada grito, cada mujer que se levanta, construye un futuro sin violencias.</p>
+        </div>
+
+        <!-- Más datos relevantes en cards pequeñas pero con diseño -->
+        <section style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin: 3rem 0;">
+            <div style="flex: 1 1 200px; background: rgba(147, 51, 234, 0.2); backdrop-filter: blur(10px); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; padding: 2rem; border: 2px solid #e879f9; text-align: center; transition: 0.5s; box-shadow: 0 0 30px #c084fc;">
+                <i class="fas fa-user-tie" style="font-size: 3rem; color: #f9a8d4;"></i>
+                <h3 style="font-size: 2rem;">+ 130 años</h3>
+                <p>de lucha organizada por la igualdad.</p>
+            </div>
+            <div style="flex: 1 1 200px; background: rgba(236, 72, 153, 0.2); backdrop-filter: blur(10px); border-radius: 70% 30% 30% 70% / 60% 40% 60% 40%; padding: 2rem; border: 2px solid #f0f; text-align: center; transition: 0.5s;">
+                <i class="fas fa-earth-americas" style="font-size: 3rem; color: #f9a8d4;"></i>
+                <h3 style="font-size: 2rem;">+ 50 países</h3>
+                <p>con marchas multitudinarias cada 8M.</p>
+            </div>
+            <div style="flex: 1 1 200px; background: rgba(168, 85, 247, 0.2); backdrop-filter: blur(10px); border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%; padding: 2rem; border: 2px solid #ff78d5; text-align: center; transition: 0.5s;">
+                <i class="fas fa-flag" style="font-size: 3rem; color: #f9a8d4;"></i>
+                <h3 style="font-size: 2rem;">Verde, morado</h3>
+                <p>Colores del movimiento: morado (justicia y dignidad) y verde (aborto legal).</p>
+            </div>
+        </section>
+
+        <!-- Frases poderosas de mujeres (efecto tipográfico) -->
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; margin: 3rem 0;">
+            <div style="flex: 1 1 250px; border-left: 6px solid #ffa6f0; padding-left: 1.5rem;">
+                <i class="fas fa-quote-right" style="font-size: 2rem; color: #ec4899;"></i>
+                <p style="font-size: 1.6rem; font-style: italic;">“No nacemos mujeres, llegamos a serlo.” <br><strong>— Simone de Beauvoir</strong></p>
+            </div>
+            <div style="flex: 1 1 250px; border-left: 6px solid #c084fc; padding-left: 1.5rem;">
+                <i class="fas fa-quote-right" style="font-size: 2rem; color: #b185db;"></i>
+                <p style="font-size: 1.6rem; font-style: italic;">“Lo personal es político.” <br><strong>— Carol Hanisch</strong></p>
+            </div>
+        </div>
+
+        <!-- CRÉDITOS FINALES con nombres y mucho estilo (lo solicitado) -->
+        <div class="credits">
+            <div class="badge">
+                <i class="fas fa-paint-brush"></i> Contenido realizado por:
+            </div>
+            <span class="credit-name"><i class="fas fa-female"></i> Melissa Bermúdez Ramírez</span>
+            <span style="font-size: 2rem; color: #ec4899; font-weight: 100;">&</span>
+            <span class="credit-name"><i class="fas fa-user-astronaut"></i> Erick Esquivel Mendoza</span>
+            <div style="width: 100%; font-size: 1.8rem; letter-spacing: 3px;">
+                <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> 4°A Ofimática  <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i>
+            </div>
+        </div>
+
+        <!-- nota final -->
+        <footer>
+            <p>🌹 8 de marzo · día de respeto, memoria y exigencia · ninguna lucha sobra 🌹</p>
+            <p style="margin-top: 1.5rem;">Hecho con <i class="fas fa-heart" style="color: #f43f5e;"></i> para GitHub — efecto visual garantizado</p>
+            <p><a href="#">☢️contenido generado por IA☢️</a>comparte la info ✊</p>
+        </footer>
+    </div>
+    <!-- pequeño adorno flotante opcional (más diseño) -->
+    <div style="position:fixed; bottom:20px; left:20px; opacity:0.3; pointer-events:none; z-index:20;">
+        <i class="fas fa-ribbon" style="font-size: 4rem; color: #ffa6f0; filter: drop-shadow(0 0 20px magenta);"></i>
+    </div>
+</body>
+</html>
